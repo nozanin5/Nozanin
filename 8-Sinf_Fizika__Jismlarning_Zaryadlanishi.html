@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-Sinf Fizika: Jismlarning Zaryadlanishi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        physics: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        chargePos: '#ef4444',
+                        chargeNeg: '#3b82f6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .canvas-container {
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #334155;
+            border-radius: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow-pos {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .glow-neg {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+
+    <!-- Header Section -->
+    <header class="bg-slate-900/90 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-gradient-to-tr from-sky-600 to-indigo-600 p-2.5 rounded-xl text-white shadow-lg shadow-sky-500/20">
+                    <i class="fa-solid fa-atom text-xl animate-spin-slow"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                        8-Sinf Fizika <span class="text-xs bg-sky-500/10 text-sky-400 border border-sky-500/30 px-2 py-0.5 rounded-full font-normal">Interaktiv Dars</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Mavzu: Jismlarning zaryadlanishi</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-1 text-sm font-medium text-slate-300">
+                <a href="#reja1" class="px-3 py-1.5 rounded-lg hover:bg-slate-800 hover:text-sky-400 transition">1. Zaryad Tushunchasi</a>
+                <a href="#reja2" class="px-3 py-1.5 rounded-lg hover:bg-slate-800 hover:text-sky-400 transition">2. Zaryad Turlari</a>
+                <a href="#reja3" class="px-3 py-1.5 rounded-lg hover:bg-slate-800 hover:text-sky-400 transition">3. Oʻzaro Ta'sir</a>
+                <a href="#prompts" class="px-3 py-1.5 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 hover:bg-sky-500/20 transition">AI Promptlar</a>
+            </nav>
+
+            <div class="flex items-center space-x-2">
+                <span class="text-xs text-slate-400 hidden sm:inline-block">Darslik Moduli</span>
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>
+                    Interaktiv Simulyator
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Section -->
+    <section class="relative overflow-hidden bg-slate-900 border-b border-slate-800 py-12 px-4 sm:px-6">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-5xl mx-auto text-center space-y-4 relative z-10">
+            <span class="inline-block text-xs font-semibold uppercase tracking-wider text-sky-400 bg-sky-950/80 border border-sky-800/80 px-3 py-1 rounded-full">
+                Elektrostatika Asoslari
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-indigo-300 to-purple-400 tracking-tight">
+                Jismlarning Zaryadlanishi
+            </h1>
+            <p class="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+                Elektr zaryadining tabiati, atom tarkibidagi elektronlarning koʻchib oʻtishi, zaryad saqlanish qonuni hamda zaryadlangan jismlarning elektrostatik itarish va tortish kuchlarini interaktiv tajribalar orqali oʻrganing.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-3 pt-2">
+                <a href="#reja1" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-xl font-medium text-sm shadow-lg shadow-sky-600/30 transition flex items-center gap-2">
+                    <i class="fa-solid fa-play"></i> Tajribani Boshlash
+                </a>
+                <a href="#prompts" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl font-medium text-sm transition flex items-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles text-purple-400"></i> AI Dars Promptlari
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16 flex-grow">
+
+        <!-- REJA 1: ELEKTR ZARYADI TUSHUNCHASI -->
+        <section id="reja1" class="scroll-mt-20 space-y-6">
+            <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+                <span class="bg-sky-500 text-slate-950 font-extrabold w-9 h-9 rounded-xl flex items-center justify-center text-lg shadow-lg shadow-sky-500/20">1</span>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Elektr zaryadi tushunchasi va Ishqalanish</h2>
+                    <p class="text-xs text-slate-400">Elektronlarning jismdan jismga koʻchishi va elektrostatik zaryad hosil boʻlishi</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Theory Text (5 cols) -->
+                <div class="lg:col-span-5 space-y-4 text-slate-300 text-sm leading-relaxed bg-slate-900/60 p-6 rounded-2xl border border-slate-800 shadow-xl">
+                    <h3 class="text-base font-semibold text-sky-400 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Nazariy Ma'lumot
+                    </h3>
+                    <p>
+                        <strong class="text-white">Elektr zaryadi</strong> — bu jismlar yoki zarrachalarning bir-biri bilan elektromagnetik oʻzaro ta'sirlashuv xususiyatini belgilaydigan asosiy fizik kattalikdir.
+                    </p>
+                    
+                    <div class="space-y-2 bg-slate-950/60 p-3.5 rounded-xl border border-slate-800">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-slate-400">SI Tizimidagi Birligi:</span>
+                            <span class="font-bold text-sky-400">Kulon (Kl / C)</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs border-t border-slate-800 pt-1.5">
+                            <span class="text-slate-400">Elementar zaryad ($e$):</span>
+                            <span class="font-bold text-amber-400">\( e \approx 1{,}6 \times 10^{-19} \text{ Kl} \)</span>
+                        </div>
+                    </div>
+
+                    <p>
+                        <strong>Zaryadlanish Mexanizmi:</strong> Normal holatda har qanday atom neytral boʻladi (protonlar va elektronlar soni teng). Ishqalanish yoki tegish jarayonida atom yadrosiga kuchsiz bogʻlangan elektronlar bir jismdan ikkinchisiga oʻtadi:
+                    </p>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex items-start gap-2 text-xs">
+                            <i class="fa-solid fa-circle-minus text-sky-400 mt-0.5"></i>
+                            <span>Elektron qabul qilgan jism <strong class="text-sky-400">manfiy (-)</strong> zaryadlanadi.</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-xs">
+                            <i class="fa-solid fa-circle-plus text-rose-400 mt-0.5"></i>
+                            <span>Elektron yoʻqotgan jism <strong class="text-rose-400">musbat (+)</strong> zaryadlanadi.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Simulation 1 Canvas Workspace (7 cols) -->
+                <div class="lg:col-span-7 canvas-container p-6 flex flex-col space-y-4">
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        <div>
+                            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-flask text-sky-400"></i> Simulyatsiya 1: Ishqalanish Tajribasi
+                            </h3>
+                            <p class="text-xs text-slate-400">Sichqoncha bilan Tayoqchani ushlab Matoga surting</p>
+                        </div>
+                        <button onclick="resetSim1()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold rounded-lg text-slate-300 transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-rotate-left"></i> Qayta Tiklash
+                        </button>
+                    </div>
+
+                    <!-- Canvas -->
+                    <div class="relative w-full aspect-[16/9] bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+                        <canvas id="canvasSim1" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
+                        
+                        <!-- Overlay guidance -->
+                        <div id="sim1Hint" class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-slate-900/90 backdrop-blur px-3 py-1.5 rounded-full border border-slate-700 text-xs text-slate-300 pointer-events-none flex items-center gap-2">
+                            <i class="fa-solid fa-hand-pointer text-sky-400 animate-bounce"></i> Tayoqchani Matoga ishqalang
+                        </div>
+                    </div>
+
+                    <!-- Realtime Dashboard -->
+                    <div class="grid grid-cols-2 gap-4 pt-1">
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <span class="text-xs text-slate-400 block">Tayoqcha Zaryadi ($Q_1$)</span>
+                                <span id="rodNetCharge" class="text-lg font-bold text-rose-400">+0 e</span>
+                            </div>
+                            <div class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 font-bold text-sm">
+                                +
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <span class="text-xs text-slate-400 block">Mato Zaryadi ($Q_2$)</span>
+                                <span id="clothNetCharge" class="text-lg font-bold text-sky-400">-0 e</span>
+                            </div>
+                            <div class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 font-bold text-sm">
+                                -
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REJA 2: ZARYADLARNING TABIATDA MAVJUDLIGI VA TURLARI -->
+        <section id="reja2" class="scroll-mt-20 space-y-6">
+            <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+                <span class="bg-indigo-500 text-slate-950 font-extrabold w-9 h-9 rounded-xl flex items-center justify-center text-lg shadow-lg shadow-indigo-500/20">2</span>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Zaryadlarning tabiatda mavjudligi va Saqlanish Qonuni</h2>
+                    <p class="text-xs text-slate-400">Musbat va manfiy zaryad turlari hamda yopiq tizimda zaryad balansi</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Theory Text (5 cols) -->
+                <div class="lg:col-span-5 space-y-4 text-slate-300 text-sm leading-relaxed bg-slate-900/60 p-6 rounded-2xl border border-slate-800 shadow-xl">
+                    <h3 class="text-base font-semibold text-indigo-400 flex items-center gap-2">
+                        <i class="fa-solid fa-scale-balanced"></i> Nazariy Ma'lumot
+                    </h3>
+                    <p> Tabiatda tajribalar orqali tasdiqlangan <strong class="text-white">ikki xil elektr zaryadi</strong> mavjud: </p>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-rose-950/30 border border-rose-500/30 p-3 rounded-xl text-center space-y-1">
+                            <span class="text-rose-400 font-bold block text-sm"><i class="fa-solid fa-plus-circle"></i> Musbat Zaryad</span>
+                            <span class="text-[11px] text-slate-400 leading-tight block">Shisha tayoqchani ipak matoga ishqalaganda shishada hosil boʻladi</span>
+                        </div>
+                        <div class="bg-sky-950/30 border border-sky-500/30 p-3 rounded-xl text-center space-y-1">
+                            <span class="text-sky-400 font-bold block text-sm"><i class="fa-solid fa-minus-circle"></i> Manfiy Zaryad</span>
+                            <span class="text-[11px] text-slate-400 leading-tight block">Ebonit tayoqchani jun matoga ishqalaganda ebonitda hosil boʻladi</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-indigo-950/40 p-4 rounded-xl border border-indigo-500/30 space-y-2">
+                        <h4 class="font-bold text-indigo-300 text-xs uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved"></i> Zaryadning Saqlanish Qonuni
+                        </h4>
+                        <p class="text-xs text-slate-300">
+                            Tashqi muhit bilan zaryad almashmaydigan <strong>yopiq tizimda</strong> barcha jismlar zaryadlarining algebraik yigʻindisi oʻzgarmasdan qoladi:
+                        </p>
+                        <div class="text-center font-mono font-bold text-indigo-300 text-sm bg-slate-950/80 py-2 rounded-lg border border-indigo-500/20">
+                            \( q_1 + q_2 + q_3 + \dots + q_n = \text{const} \)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation 2 Canvas Workspace (7 cols) -->
+                <div class="lg:col-span-7 canvas-container p-6 flex flex-col space-y-4">
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        <div>
+                            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-layer-group text-indigo-400"></i> Simulyatsiya 2: Materiallar Juftligi va Saqlanish Qonuni
+                            </h3>
+                            <p class="text-xs text-slate-400">Material turini tanlang va zaryadlar balansi grafikini kuzating</p>
+                        </div>
+
+                        <!-- Material Toggle -->
+                        <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+                            <button onclick="setPair('glass')" id="btnPairGlass" class="px-3 py-1.5 rounded-lg font-semibold transition bg-indigo-600 text-white shadow">
+                                Shisha + Ipak
+                            </button>
+                            <button onclick="setPair('ebonite')" id="btnPairEbonite" class="px-3 py-1.5 rounded-lg font-semibold transition text-slate-400 hover:text-white">
+                                Ebonit + Jun
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Canvas -->
+                    <div class="relative w-full aspect-[16/9] bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+                        <canvas id="canvasSim2" class="w-full h-full cursor-pointer"></canvas>
+                        <div id="sim2RubPrompt" class="absolute top-3 right-3 bg-slate-900/80 backdrop-blur px-3 py-1 rounded-full border border-slate-700 text-xs text-slate-300">
+                            Ishqalash uchun bosing / surting
+                        </div>
+                    </div>
+
+                    <!-- Conservation Live Meter -->
+                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-slate-300 font-medium">Tizimning Umumiy Zaryad Balansi ($Q_{umumiy}$):</span>
+                            <span id="totalConservationValue" class="font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                                0 e (Saqlanmoqda)
+                            </span>
+                        </div>
+                        <div class="w-full bg-slate-950 h-3 rounded-full overflow-hidden flex border border-slate-800">
+                            <div id="barPos" class="bg-rose-500 h-full transition-all duration-300" style="width: 50%"></div>
+                            <div id="barNeg" class="bg-sky-500 h-full transition-all duration-300" style="width: 50%"></div>
+                        </div>
+                        <div class="flex justify-between text-[11px] text-slate-400 font-mono">
+                            <span id="labelPosCharge">Tayoqcha: 0 e</span>
+                            <span id="labelNegCharge">Mato: 0 e</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REJA 3: ZARYADLANGAN JISMLARNING OʻZARO TA'SIRI -->
+        <section id="reja3" class="scroll-mt-20 space-y-6">
+            <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+                <span class="bg-emerald-500 text-slate-950 font-extrabold w-9 h-9 rounded-xl flex items-center justify-center text-lg shadow-lg shadow-emerald-500/20">3</span>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Zaryadlangan jismlarning oʻzaro ta'siri (Kulon Kuchi)</h2>
+                    <p class="text-xs text-slate-400">Bir xil va har xil ishorali zaryadlarning itarishi va tortishuvi</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Theory Text (5 cols) -->
+                <div class="lg:col-span-5 space-y-4 text-slate-300 text-sm leading-relaxed bg-slate-900/60 p-6 rounded-2xl border border-slate-800 shadow-xl">
+                    <h3 class="text-base font-semibold text-emerald-400 flex items-center gap-2">
+                        <i class="fa-solid fa-arrows-left-right"></i> Nazariy Ma'lumot
+                    </h3>
+                    <p>
+                        Zaryadlangan jismlar orasida masofadan turib elektrostatik oʻzaro ta'sir kuchi ( Kulon kuchi ) mavjud boʻladi.
+                    </p>
+
+                    <div class="space-y-3">
+                        <div class="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800 flex items-center space-x-3">
+                            <div class="text-rose-400 font-extrabold text-lg tracking-wider bg-rose-500/10 px-2 py-1 rounded">⇇ ⇉</div>
+                            <div class="text-xs">
+                                <strong class="text-white block">Bir xil ishorali zaryadlar:</strong>
+                                <span class="text-slate-400">Bir-birini <strong class="text-rose-400">ITARADI</strong> (+ va +, - va -)</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800 flex items-center space-x-3">
+                            <div class="text-sky-400 font-extrabold text-lg tracking-wider bg-sky-500/10 px-2 py-1 rounded">⇉ ⇇</div>
+                            <div class="text-xs">
+                                <strong class="text-white block">Har xil ishorali zaryadlar:</strong>
+                                <span class="text-slate-400">Bir-biriga <strong class="text-emerald-400">TORTILADI</strong> (+ va -)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-950/30 p-3.5 rounded-xl border border-emerald-500/30 text-xs space-y-1">
+                        <span class="font-bold text-emerald-400 block">Kulon Qonuni Formulasi:</span>
+                        <p class="text-slate-300">
+                            Ikkita nuqtaviy zaryadning oʻzaro ta'sir kuchi zaryadlar miqdorining koʻpaytmasiga toʻgʻri, orasidagi masofaning kvadratiga teskari mutanosibdir:
+                        </p>
+                        <div class="text-center font-mono text-sm text-emerald-300 font-bold pt-1">
+                            \( F = k \cdot \frac{|q_1 \cdot q_2|}{r^2} \)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation 3 Canvas Workspace (7 cols) -->
+                <div class="lg:col-span-7 canvas-container p-6 flex flex-col space-y-4">
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        <div>
+                            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-network-wired text-emerald-400"></i> Simulyatsiya 3: Sharchalar Dinamikasi
+                            </h3>
+                            <p class="text-xs text-slate-400">Zaryad ishorasi va miqdorini oʻzgartirib kuch vektorlarini kuzating</p>
+                        </div>
+
+                        <div id="statusBadgeSim3" class="px-3 py-1 rounded-full text-xs font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
+                            Oʻzaro Tortishish
+                        </div>
+                    </div>
+
+                    <!-- Controls Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-900/90 p-3.5 rounded-xl border border-slate-800">
+                        <!-- Ball 1 Controls -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-slate-300 font-medium">1-Sharcha Zaryadi ($q_1$):</span>
+                                <span id="valQ1" class="font-bold text-rose-400">+3 µC</span>
+                            </div>
+                            <input type="range" id="sliderQ1" min="-5" max="5" value="3" step="1" oninput="updateSim3()"
+                                class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-rose-500">
+                        </div>
+
+                        <!-- Ball 2 Controls -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-slate-300 font-medium">2-Sharcha Zaryadi ($q_2$):</span>
+                                <span id="valQ2" class="font-bold text-sky-400">-3 µC</span>
+                            </div>
+                            <input type="range" id="sliderQ2" min="-5" max="5" value="-3" step="1" oninput="updateSim3()"
+                                class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500">
+                        </div>
+                    </div>
+
+                    <!-- Canvas -->
+                    <div class="relative w-full aspect-[16/9] bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+                        <canvas id="canvasSim3" class="w-full h-full"></canvas>
+                    </div>
+
+                    <!-- Force Magnitude Meter -->
+                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
+                        <span class="text-slate-400">Hisoblangan Elektrostatik Kuch ($F$):</span>
+                        <span id="forceValueDisplay" class="font-mono text-sm font-bold text-amber-400">F = 0.81 N</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROMPTLAR BURCHAGI (AI PROMPT GENERATOR FOR TEACHERS) -->
+        <section id="prompts" class="scroll-mt-20 space-y-6">
+            <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+                <span class="bg-purple-500 text-slate-950 font-extrabold w-9 h-9 rounded-xl flex items-center justify-center text-lg shadow-lg shadow-purple-500/20">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </span>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">AI Dars Promptlari Burchagi</h2>
+                    <p class="text-xs text-slate-400">Oʻqituvchilar va oʻquvchilar uchun tayyor AI promptlar (Manim, PhET, Midjourney)</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Card 1: Manim Animation -->
+                <div class="bg-slate-900/80 rounded-2xl border border-slate-800 p-5 space-y-3 flex flex-col justify-between hover:border-purple-500/40 transition">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                                Python / Manim
+                            </span>
+                            <i class="fa-solid fa-video text-purple-400 text-sm"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white">Animatsion Video Yaratish</h3>
+                        <p class="text-xs text-slate-400">Manim kutubxonasi yordamida elektrostatik itarish va tortishuv 2D animatsiya kodi.</p>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-300 relative group max-h-32 overflow-y-auto">
+                            <code id="promptManim">Write a Python script using Manim animation library. Create a 2D scene titled 'Jismlarning zaryadlanishi'. Show two spheres suspended on threads. First, give both +Q charges and animate them repelling each other with force vector arrows labeled 'F_itarish'. Next, change one sphere to -Q charge and show them attracting each other with vectors labeled 'F_tortish'. Add Uzbek labels for clarity.</code>
+                        </div>
+                    </div>
+                    <button onclick="copyPrompt('promptManim', this)" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-xl border border-slate-700 transition flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-copy"></i> Copy Prompt
+                    </button>
+                </div>
+
+                <!-- Card 2: Midjourney Visuals -->
+                <div class="bg-slate-900/80 rounded-2xl border border-slate-800 p-5 space-y-3 flex flex-col justify-between hover:border-purple-500/40 transition">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                                Midjourney / DALL-E
+                            </span>
+                            <i class="fa-solid fa-image text-rose-400 text-sm"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white">Slaydlar uchun Visual Suratl</h3>
+                        <p class="text-xs text-slate-400">Darslik va slaydlar uchun 3D elektrostatik kuchlar va zarrachalar tasviri.</p>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-300 relative group max-h-32 overflow-y-auto">
+                            <code id="promptImage">An educational 3D visual illustration of static electricity interaction for 8th-grade physics textbook. Glowing blue negative electrons moving from a glass rod to silk cloth during friction, glowing force vectors showing repulsion and attraction between floating metallic spheres, high resolution 3D render, dark background, minimalist physics presentation --ar 16:9</code>
+                        </div>
+                    </div>
+                    <button onclick="copyPrompt('promptImage', this)" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-xl border border-slate-700 transition flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-copy"></i> Copy Prompt
+                    </button>
+                </div>
+
+                <!-- Card 3: PhET / Gemini Guided Lesson -->
+                <div class="bg-slate-900/80 rounded-2xl border border-slate-800 p-5 space-y-3 flex flex-col justify-between hover:border-purple-500/40 transition">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                                PhET / Gemini LLM
+                            </span>
+                            <i class="fa-solid fa-chalkboard-user text-sky-400 text-sm"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white">Interaktiv Interaktiv Metodika</h3>
+                        <p class="text-xs text-slate-400">PhET 'Balloons and Static Electricity' dars rejasini yaratish prompter koʻrsatmasi.</p>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-300 relative group max-h-32 overflow-y-auto">
+                            <code id="promptPhet">Generate a detailed lesson plan and student guidance outline for using the PhET 'Balloons and Static Electricity' simulation in an 8th-grade physics classroom in Uzbek language. Include 3 step-by-step inquiry questions focusing on electron transfer by friction, charge conservation, and electrostatic induction with a wall.</code>
+                        </div>
+                    </div>
+                    <button onclick="copyPrompt('promptPhet', this)" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-xl border border-slate-700 transition flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-copy"></i> Copy Prompt
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-8 text-center text-xs text-slate-500 space-y-2">
+        <p class="font-medium text-slate-400">8-Sinf Fizika • "Jismlarning Zaryadlanishi" Multimediali Interaktiv Ishlanma</p>
+        <p>Tayyorlangan: Gemini AI & Interactive Physics Canvas Framework</p>
+    </footer>
+
+    <script>
+        // --- SIMULATION 1: FRICTION & ELECTRON TRANSFER LOGIC ---
+        const c1 = document.getElementById('canvasSim1');
+        const ctx1 = c1.getContext('2d');
+        
+        let sim1Width, sim1Height;
+        let rod = { x: 50, y: 80, width: 140, height: 36, isDragging: false };
+        let cloth = { x: 260, y: 70, width: 130, height: 100 };
+        let electrons = [];
+        let transferredCount = 0;
+
+        function resizeSim1() {
+            const rect = c1.parentElement.getBoundingClientRect();
+            c1.width = rect.width;
+            c1.height = rect.height;
+            sim1Width = c1.width;
+            sim1Height = c1.height;
+            cloth.x = sim1Width - 170;
+            cloth.y = (sim1Height - cloth.height) / 2;
+        }
+
+        function initSim1() {
+            resizeSim1();
+            transferredCount = 0;
+            electrons = [];
+            rod.x = 40;
+            rod.y = (sim1Height - rod.height) / 2;
+
+            // Generate initial electrons on rod
+            for (let i = 0; i < 16; i++) {
+                electrons.push({
+                    relX: 15 + (i % 8) * 15,
+                    relY: 10 + Math.floor(i / 8) * 16,
+                    x: 0,
+                    y: 0,
+                    onRod: true,
+                    clothX: 0,
+                    clothY: 0
+                });
+            }
+            updateDashboard1();
+        }
+
+        function drawSim1() {
+            ctx1.clearRect(0, 0, sim1Width, sim1Height);
+
+            // Draw Cloth (Right Side)
+            ctx1.fillStyle = '#334155';
+            ctx1.strokeStyle = '#475569';
+            ctx1.lineWidth = 2;
+            ctx1.beginPath();
+            ctx1.roundRect(cloth.x, cloth.y, cloth.width, cloth.height, 12);
+            ctx1.fill();
+            ctx1.stroke();
+
+            // Cloth Label
+            ctx1.fillStyle = '#94a3b8';
+            ctx1.font = 'bold 12px Inter';
+            ctx1.fillText('Mato (Ipak/Jun)', cloth.x + 18, cloth.y + 24);
+
+            // Draw Rod
+            ctx1.fillStyle = 'rgba(56, 189, 248, 0.25)';
+            ctx1.strokeStyle = '#38bdf8';
+            ctx1.lineWidth = 2;
+            ctx1.beginPath();
+            ctx1.roundRect(rod.x, rod.y, rod.width, rod.height, 10);
+            ctx1.fill();
+            ctx1.stroke();
+
+            // Rod Label
+            ctx1.fillStyle = '#f8fafc';
+            ctx1.font = 'bold 12px Inter';
+            ctx1.fillText('Tayoqcha', rod.x + 35, rod.y + 22);
+
+            // Draw Electrons (-)
+            electrons.forEach(p => {
+                let px, py;
+                if (p.onRod) {
+                    px = rod.x + p.relX;
+                    py = rod.y + p.relY;
+                } else {
+                    px = p.clothX;
+                    py = p.clothY;
+                }
+
+                ctx1.beginPath();
+                ctx1.arc(px, py, 6, 0, Math.PI * 2);
+                ctx1.fillStyle = '#3b82f6';
+                ctx1.fill();
+                ctx1.strokeStyle = '#ffffff';
+                ctx1.lineWidth = 1;
+                ctx1.stroke();
+
+                // Minus sign
+                ctx1.fillStyle = '#ffffff';
+                ctx1.font = 'bold 10px Inter';
+                ctx1.fillText('-', px - 2, py + 3);
+            });
+
+            // Friction Overlap Check
+            if (rod.isDragging) {
+                const overlap = !(rod.x + rod.width < cloth.x || 
+                                  rod.x > cloth.x + cloth.width || 
+                                  rod.y + rod.height < cloth.y || 
+                                  rod.y > cloth.y + cloth.height);
+                if (overlap) {
+                    // Transfer electrons randomly during rubbing
+                    electrons.forEach(p => {
+                        if (p.onRod && Math.random() < 0.08) {
+                            p.onRod = false;
+                            p.clothX = cloth.x + 20 + Math.random() * (cloth.width - 40);
+                            p.clothY = cloth.y + 35 + Math.random() * (cloth.height - 50);
+                            transferredCount++;
+                            updateDashboard1();
+                        }
+                    });
+                }
+            }
+
+            requestAnimationFrame(drawSim1);
+        }
+
+        function updateDashboard1() {
+            document.getElementById('rodNetCharge').innerText = `+${transferredCount} e`;
+            document.getElementById('clothNetCharge').innerText = `-${transferredCount} e`;
+            if(transferredCount > 0) {
+                const hint = document.getElementById('sim1Hint');
+                if(hint) hint.style.display = 'none';
+            }
+        }
+
+        function resetSim1() {
+            initSim1();
+        }
+
+        // Dragging Event Listeners for Sim 1
+        let dragOffsetX = 0, dragOffsetY = 0;
+
+        function handlePointerDown(e) {
+            const rect = c1.getBoundingClientRect();
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            const mouseX = clientX - rect.left;
+            const mouseY = clientY - rect.top;
+
+            if (mouseX >= rod.x && mouseX <= rod.x + rod.width &&
+                mouseY >= rod.y && mouseY <= rod.y + rod.height) {
+                rod.isDragging = true;
+                dragOffsetX = mouseX - rod.x;
+                dragOffsetY = mouseY - rod.y;
+            }
+        }
+
+        function handlePointerMove(e) {
+            if (!rod.isDragging) return;
+            const rect = c1.getBoundingClientRect();
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            
+            rod.x = clientX - rect.left - dragOffsetX;
+            rod.y = clientY - rect.top - dragOffsetY;
+
+            // Constrain
+            rod.x = Math.max(10, Math.min(sim1Width - rod.width - 10, rod.x));
+            rod.y = Math.max(10, Math.min(sim1Height - rod.height - 10, rod.y));
+        }
+
+        function handlePointerUp() {
+            rod.isDragging = false;
+        }
+
+        c1.addEventListener('mousedown', handlePointerDown);
+        c1.addEventListener('mousemove', handlePointerMove);
+        window.addEventListener('mouseup', handlePointerUp);
+
+        c1.addEventListener('touchstart', handlePointerDown);
+        c1.addEventListener('touchmove', handlePointerMove);
+        window.addEventListener('touchend', handlePointerUp);
+
+
+        // --- SIMULATION 2: MATERIAL PAIRS & CONSERVATION LAW LOGIC ---
+        const c2 = document.getElementById('canvasSim2');
+        const ctx2 = c2.getContext('2d');
+        let currentPair = 'glass';
+        let rubAmount = 0;
+
+        function setPair(pair) {
+            currentPair = pair;
+            rubAmount = 0;
+            document.getElementById('btnPairGlass').className = pair === 'glass'
+                ? 'px-3 py-1.5 rounded-lg font-semibold transition bg-indigo-600 text-white shadow'
+                : 'px-3 py-1.5 rounded-lg font-semibold transition text-slate-400 hover:text-white';
+            document.getElementById('btnPairEbonite').className = pair === 'ebonite'
+                ? 'px-3 py-1.5 rounded-lg font-semibold transition bg-indigo-600 text-white shadow'
+                : 'px-3 py-1.5 rounded-lg font-semibold transition text-slate-400 hover:text-white';
+            updateSim2Meter();
+            drawSim2();
+        }
+
+        function drawSim2() {
+            const width = c2.width = c2.parentElement.clientWidth;
+            const height = c2.height = c2.parentElement.clientHeight;
+            ctx2.clearRect(0, 0, width, height);
+
+            const isGlass = currentPair === 'glass';
+
+            // Item 1: Rod
+            const rodX = width * 0.2;
+            const rodY = height * 0.35;
+            ctx2.fillStyle = isGlass ? 'rgba(147, 197, 253, 0.4)' : '#1e293b';
+            ctx2.strokeStyle = isGlass ? '#93c5fd' : '#475569';
+            ctx2.lineWidth = 2;
+            ctx2.beginPath();
+            ctx2.roundRect(rodX, rodY, 120, 36, 8);
+            ctx2.fill();
+            ctx2.stroke();
+
+            ctx2.fillStyle = '#ffffff';
+            ctx2.font = 'bold 12px Inter';
+            ctx2.fillText(isGlass ? 'Shisha Tayoqcha' : 'Ebonit Tayoqcha', rodX + 10, rodY + 22);
+
+            // Item 2: Cloth
+            const clothX = width * 0.6;
+            const clothY = height * 0.25;
+            ctx2.fillStyle = isGlass ? '#e2e8f0' : '#854d0e';
+            ctx2.beginPath();
+            ctx2.roundRect(clothX, clothY, 110, 80, 10);
+            ctx2.fill();
+
+            ctx2.fillStyle = isGlass ? '#0f172a' : '#ffffff';
+            ctx2.fillText(isGlass ? 'Ipak Mato' : 'Jun Mato', clothX + 25, clothY + 45);
+
+            // Display Charges
+            const chargeVal = rubAmount;
+            const posSign = '+';
+            const negSign = '-';
+
+            ctx2.font = 'bold 14px Inter';
+            for (let i = 0; i < Math.min(chargeVal, 6); i++) {
+                // Rod charges
+                ctx2.fillStyle = isGlass ? '#ef4444' : '#3b82f6';
+                ctx2.fillText(isGlass ? posSign : negSign, rodX + 15 + i * 16, rodY - 10);
+
+                // Cloth charges
+                ctx2.fillStyle = isGlass ? '#3b82f6' : '#ef4444';
+                ctx2.fillText(isGlass ? negSign : posSign, clothX + 15 + i * 15, clothY - 10);
+            }
+        }
+
+        function updateSim2Meter() {
+            const isGlass = currentPair === 'glass';
+            const posCount = isGlass ? rubAmount : -rubAmount;
+            const negCount = isGlass ? -rubAmount : rubAmount;
+
+            document.getElementById('labelPosCharge').innerText = `Tayoqcha: ${posCount > 0 ? '+' : ''}${posCount} e`;
+            document.getElementById('labelNegCharge').innerText = `Mato: ${negCount > 0 ? '+' : ''}${negCount} e`;
+            document.getElementById('totalConservationValue').innerText = `0 e (Saqlanmoqda)`;
+        }
+
+        c2.addEventListener('click', () => {
+            if (rubAmount < 6) {
+                rubAmount++;
+                updateSim2Meter();
+                drawSim2();
+            }
+        });
+
+
+        // --- SIMULATION 3: COULOMB INTERACTION DYNAMICS LOGIC ---
+        const c3 = document.getElementById('canvasSim3');
+        const ctx3 = c3.getContext('2d');
+
+        let q1 = 3;
+        let q2 = -3;
+        let angle1 = 0, angle2 = 0;
+
+        function updateSim3() {
+            q1 = parseInt(document.getElementById('sliderQ1').value);
+            q2 = parseInt(document.getElementById('sliderQ2').value);
+
+            document.getElementById('valQ1').innerText = `${q1 > 0 ? '+' : ''}${q1} µC`;
+            document.getElementById('valQ1').className = `font-bold ${q1 > 0 ? 'text-rose-400' : (q1 < 0 ? 'text-sky-400' : 'text-slate-400')}`;
+            
+            document.getElementById('valQ2').innerText = `${q2 > 0 ? '+' : ''}${q2} µC`;
+            document.getElementById('valQ2').className = `font-bold ${q2 > 0 ? 'text-rose-400' : (q2 < 0 ? 'text-sky-400' : 'text-slate-400')}`;
+
+            const badge = document.getElementById('statusBadgeSim3');
+            const product = q1 * q2;
+
+            if (product < 0) {
+                badge.innerText = "Oʻzaro TORTISHISH (Har xil ishora)";
+                badge.className = "px-3 py-1 rounded-full text-xs font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/30";
+            } else if (product > 0) {
+                badge.innerText = "Oʻzaro ITARISH (Bir xil ishora)";
+                badge.className = "px-3 py-1 rounded-full text-xs font-bold border bg-rose-500/10 text-rose-400 border-rose-500/30";
+            } else {
+                badge.innerText = "Oʻzaro ta'sir yoʻq (Neytral)";
+                badge.className = "px-3 py-1 rounded-full text-xs font-bold border bg-slate-800 text-slate-400 border-slate-700";
+            }
+
+            // Force calculation formula F = k*|q1*q2|/r^2
+            const force = Math.abs(q1 * q2) * 0.09;
+            document.getElementById('forceValueDisplay').innerText = `F = ${force.toFixed(2)} N`;
+        }
+
+        function drawSim3() {
+            const width = c3.width = c3.parentElement.clientWidth;
+            const height = c3.height = c3.parentElement.clientHeight;
+            ctx3.clearRect(0, 0, width, height);
+
+            const anchorY = 30;
+            const anchor1X = width * 0.38;
+            const anchor2X = width * 0.62;
+            const threadLength = height * 0.55;
+
+            // Calculate deflection angle based on charges
+            const forceFactor = (q1 * q2);
+            const targetAngle = forceFactor * 0.04; // Max deflection
+
+            // Smooth interpolation
+            angle1 += (targetAngle - angle1) * 0.1;
+            angle2 += (-targetAngle - angle2) * 0.1;
+
+            const ball1X = anchor1X + Math.sin(angle1) * threadLength;
+            const ball1Y = anchorY + Math.cos(angle1) * threadLength;
+
+            const ball2X = anchor2X + Math.sin(angle2) * threadLength;
+            const ball2Y = anchorY + Math.cos(angle2) * threadLength;
+
+            // Draw Ceiling Support
+            ctx3.strokeStyle = '#475569';
+            ctx3.lineWidth = 4;
+            ctx3.beginPath();
+            ctx3.moveTo(anchor1X - 40, anchorY);
+            ctx3.lineTo(anchor2X + 40, anchorY);
+            ctx3.stroke();
+
+            // Draw Threads
+            ctx3.strokeStyle = '#94a3b8';
+            ctx3.lineWidth = 1.5;
+            ctx3.beginPath();
+            ctx3.moveTo(anchor1X, anchorY);
+            ctx3.lineTo(ball1X, ball1Y);
+            ctx3.moveTo(anchor2X, anchorY);
+            ctx3.lineTo(ball2X, ball2Y);
+            ctx3.stroke();
+
+            // Draw Vector Force Arrows if non-zero
+            if (q1 !== 0 && q2 !== 0) {
+                const dir = forceFactor > 0 ? -1 : 1; // Itarish (-1) or Tortish (1)
+                const arrowLen = Math.min(Math.abs(forceFactor) * 6, 45);
+
+                // Arrow 1
+                drawArrow(ctx3, ball1X, ball1Y, ball1X + dir * arrowLen, ball1Y, '#f59e0b');
+                // Arrow 2
+                drawArrow(ctx3, ball2X, ball2Y, ball2X - dir * arrowLen, ball2Y, '#f59e0b');
+            }
+
+            // Draw Ball 1
+            drawSphere(ctx3, ball1X, ball1Y, q1);
+            // Draw Ball 2
+            drawSphere(ctx3, ball2X, ball2Y, q2);
+
+            requestAnimationFrame(drawSim3);
+        }
+
+        function drawSphere(ctx, x, y, charge) {
+            const radius = 20;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+
+            let color = '#64748b'; // neutral
+            if (charge > 0) color = '#ef4444';
+            if (charge < 0) color = '#3b82f6';
+
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Inner text
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 14px Inter';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const txt = charge > 0 ? `+${charge}` : (charge < 0 ? `${charge}` : '0');
+            ctx.fillText(txt, x, y);
+        }
+
+        function drawArrow(ctx, fromX, fromY, toX, toY, color) {
+            const headlen = 8;
+            const dx = toX - fromX;
+            const dy = toY - fromY;
+            const angle = Math.atan2(dy, dx);
+
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = 3;
+
+            ctx.beginPath();
+            ctx.moveTo(fromX, fromY);
+            ctx.lineTo(toX, toY);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(toX, toY);
+            ctx.lineTo(toX - headlen * Math.cos(angle - Math.PI / 6), toY - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(toX - headlen * Math.cos(angle + Math.PI / 6), toY - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.fill();
+        }
+
+
+        // --- COPY PROMPT FUNCTION ---
+        function copyPrompt(elementId, btnElement) {
+            const codeText = document.getElementById(elementId).innerText;
+            
+            // Clipboard copy fallbacks
+            const textarea = document.createElement('textarea');
+            textarea.value = codeText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            const originalHTML = btnElement.innerHTML;
+            btnElement.innerHTML = `<i class="fa-solid fa-check text-emerald-400"></i> Nusxalandi!`;
+            btnElement.classList.add('bg-emerald-950/50', 'border-emerald-500/40');
+
+            setTimeout(() => {
+                btnElement.innerHTML = originalHTML;
+                btnElement.classList.remove('bg-emerald-950/50', 'border-emerald-500/40');
+            }, 2000);
+        }
+
+
+        // --- INITIALIZATION ON WINDOW LOAD ---
+        window.addEventListener('load', () => {
+            initSim1();
+            drawSim1();
+
+            setPair('glass');
+
+            updateSim3();
+            drawSim3();
+        });
+
+        window.addEventListener('resize', () => {
+            resizeSim1();
+            drawSim2();
+        });
+    </script>
+</body>
+</html>
