@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="uz" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-Sinf Fizika: O‘tkazgichlarda elektr zaryadlarining taqsimlanishi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        canvas { touch-action: none; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 h-full flex flex-col antialiased">
+
+    <header class="bg-slate-800 border-b border-slate-700 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-cyan-500/10 p-2 rounded-xl border border-cyan-500/30 text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold tracking-tight text-white">8-Sinf Fizika: O‘tkazgichlar</h1>
+                    <p class="text-xs text-slate-400">Elektr zaryadlarining taqsimlanishi va elektrostatika</p>
+                </div>
+            </div>
+            <!-- Reja Selection Buttons -->
+            <nav class="flex flex-wrap gap-2 bg-slate-900/60 p-1.5 rounded-xl border border-slate-700/60">
+                <button onclick="switchTab(1)" id="btn-tab-1" class="px-4 py-2 text-xs md:text-sm font-medium rounded-lg transition-all bg-cyan-600 text-white shadow-sm">1-Reja: Elektrostatik Induksiya</button>
+                <button onclick="switchTab(2)" id="btn-tab-2" class="px-4 py-2 text-xs md:text-sm font-medium rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-800">2-Reja: Sirtda Taqsimlanish</button>
+                <button onclick="switchTab(3)" id="btn-tab-3" class="px-4 py-2 text-xs md:text-sm font-medium rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-800">3-Reja: Uchlar Effekti</button>
+                <button onclick="switchTab(4)" id="btn-tab-4" class="px-4 py-2 text-xs md:text-sm font-medium rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-800">AI Promptlar</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 overflow-y-auto">
+
+        <!-- TAB 1: Elektrostatik Induksiya -->
+        <section id="tab-1" class="space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Simulation Area -->
+                <div class="lg:col-span-2 bg-slate-800/80 border border-slate-700/80 rounded-2xl p-4 flex flex-col shadow-xl">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-base font-semibold text-cyan-400 flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                            Simulyatsiya 1: O'tkazgich va dielektriklar
+                        </h2>
+                        <span class="text-xs bg-slate-700 text-slate-300 px-2.5 py-1 rounded-full">Interactive Canvas</span>
+                    </div>
+                    <div class="relative w-full aspect-[16/9] bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+                        <canvas id="canvasTab1" class="w-full h-full block cursor-pointer"></canvas>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mt-4 items-center justify-between bg-slate-900/50 p-3 rounded-xl border border-slate-800">
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleFieldTab1()" id="fieldBtn1" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs md:text-sm font-medium transition shadow">Tashqi maydon: O'chiq</button>
+                            <button onclick="resetSim1()" class="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs transition">Qayta tiklash</button>
+                        </div>
+                        <p class="text-xs text-slate-400">Maydon chiziqlari va erkin elektronlar harakati</p>
+                    </div>
+                </div>
+
+                <!-- Theory & Explanation Panel -->
+                <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 flex flex-col justify-between shadow-xl space-y-4">
+                    <div>
+                        <h3 class="text-sm font-semibold uppercase tracking-wider text-cyan-400 mb-2">Nazariy Asoslar</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            O'tkazgich tashqi elektr maydoniga kiritilganda, undagi erkin elektronlar maydon kuch chiziqlariga teskari yo'nalishda ko'chadi. Bu hodisa <b>elektrostatik induksiya</b> deyiladi.
+                        </p>
+                        <div class="mt-4 space-y-2 bg-slate-900/50 p-3 rounded-xl border border-slate-800 text-xs text-slate-300">
+                            <p>• <b>Musbat zaryadlar:</b> Bir chetda to'planadi.</p>
+                            <p>• <b>Manfiy zaryadlar:</b> Qarama-qarshi chetga siljiydi ($e^-$).</p>
+                            <p>• <b>Natijaviy maydon:</b> O'tkazgich ichida $E_{ichki} = 0$ bo'ladi.</p>
+                        </div>
+                    </div>
+                    <div class="bg-cyan-950/40 border border-cyan-800/50 p-3 rounded-xl">
+                        <span class="text-xs font-semibold text-cyan-300 block mb-1">Muhim qonuniyat:</span>
+                        <p class="text-xs text-cyan-200/80">Muvozanat holatida o'tkazgich ichidagi elektr maydon kuchlanishi har doim nolga teng.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: Zaryadning sirtda taqsimlanishi -->
+        <section id="tab-2" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Simulation Area -->
+                <div class="lg:col-span-2 bg-slate-800/80 border border-slate-700/80 rounded-2xl p-4 flex flex-col shadow-xl">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-base font-semibold text-cyan-400 flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                            Simulyatsiya 2: Zaryad zichligi ($\sigma$)
+                        </h2>
+                        <span class="text-xs bg-slate-700 text-slate-300 px-2.5 py-1 rounded-full">Shakl tanlash</span>
+                    </div>
+                    <div class="relative w-full aspect-[16/9] bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+                        <canvas id="canvasTab2" class="w-full h-full block"></canvas>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mt-4 items-center justify-between bg-slate-900/50 p-3 rounded-xl border border-slate-800">
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="setShape(1)" id="shapeBtn1" class="px-3 py-2 bg-cyan-600 text-white rounded-lg text-xs font-medium transition">Shar</button>
+                            <button onclick="setShape(2)" id="shapeBtn2" class="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs font-medium transition">Elipssimon / Cho'ziq</button>
+                            <button onclick="setShape(3)" id="shapeBtn3" class="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs font-medium transition">O'tkir uchli</button>
+                        </div>
+                        <span id="shapeInfo" class="text-xs text-slate-400">Zaryad bir tekis taqsimlangan</span>
+                    </div>
+                </div>
+
+                <!-- Theory & Explanation Panel -->
+                <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 flex flex-col justify-between shadow-xl space-y-4">
+                    <div>
+                        <h3 class="text-sm font-semibold uppercase tracking-wider text-cyan-400 mb-2">Sirt Zichligi Formulasi</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Zaryad o'tkazgichning faqat sirtida taqsimlanadi. Sirtning egrilik radiusi kichik bo'lgan joylarida (o'tkir uchlar) sirt zichligi $\sigma$ eng katta bo'ladi.
+                        </p>
+                        <div class="mt-4 bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-center">
+                            <span class="text-cyan-400 text-lg font-bold">$\sigma = \frac{q}{S}$</span>
+                            <p class="text-xs text-slate-400 mt-1">($q$ — zaryad, $S$ — sirt yuzasi)</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900/50 p-3 rounded-xl border border-slate-800 text-xs text-slate-300 space-y-1">
+                        <p><b>Shar sirti:</b> $\sigma = const$ (bir tekis)</p>
+                        <p><b>Cho'ziq sirt:</b> Uchlarida zichlik ortadi</p>
+                        <p><b>O'tkir uchlar:</b> Maksimal kuchlanish va $\sigma_{max}$</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: Uchlar effekti va chaqmoq qaytargich -->
+        <section id="tab-3" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Simulation Area -->
+                <div class="lg:col-span-2 bg-slate-800/80 border border-slate-700/80 rounded-2xl p-4 flex flex-col shadow-xl">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-base font-semibold text-cyan-400 flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                            Simulyatsiya 3: Uchlar effekti va Chaqmoq qaytargich
+                        </h2>
+                        <span class="text-xs bg-slate-700 text-slate-300 px-2.5 py-1 rounded-full">Ionlanish modeli</span>
+                    </div>
+                    <div class="relative w-full aspect-[16/9] bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+                        <canvas id="canvasTab3" class="w-full h-full block"></canvas>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mt-4 items-center justify-between bg-slate-900/50 p-3 rounded-xl border border-slate-800">
+                        <div class="flex items-center gap-3">
+                            <button onclick="triggerLightning()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs md:text-sm font-medium transition shadow">Chaqmoqni simulyatsiya qilish</button>
+                            <button onclick="toggleLightningRod()" id="rodBtn" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs md:text-sm font-medium transition shadow">Chaqmoq qaytargich: Yoqilgan</button>
+                        </div>
+                        <p class="text-xs text-slate-400" id="lightningStatus">Tizim barqaror</p>
+                    </div>
+                </div>
+
+                <!-- Theory & Explanation Panel -->
+                <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 flex flex-col justify-between shadow-xl space-y-4">
+                    <div>
+                        <h3 class="text-sm font-semibold uppercase tracking-wider text-cyan-400 mb-2">Uchlar Effekti</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            O'tkir uchlar atrofida elektr maydon kuchlanishi shunchalik ortadiki, u havo molekulalarini ionlaydi ("elektr Sham").
+                        </p>
+                        <div class="mt-3 space-y-2 text-xs text-slate-300">
+                            <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                                <b>Chaqmoq qaytargich:</b> Binolarni himoya qilish uchun bino cho'qqisiga o'rnatiladigan o'tkir metall tayoqcha. U zaryadni Yerga oqizib yuboradi.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-amber-950/30 border border-amber-800/50 p-3 rounded-xl">
+                        <span class="text-xs font-semibold text-amber-300 block mb-1">Dmitriy Lomonosov & Franklin:</span>
+                        <p class="text-xs text-amber-200/80">Benjamin Franklin 1752-yilda birinchi chaqmoq qaytargichni ixtiro qilgan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: AI Prompt Workspace -->
+        <section id="tab-4" class="hidden space-y-6">
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-6 shadow-xl">
+                <h2 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    AI Animatsiya va 3D Vizualizatsiya Uchun Promptlar
+                </h2>
+                <p class="text-xs text-slate-400 mb-6">Ushbu promptlardan foydalanib, sun'iy intellekt (Manim, Three.js yoki ChatGPT) yordamida qo'shimcha animatsiyalar yaratishingiz mumkin.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Manim Prompt -->
+                    <div class="bg-slate-900 border border-slate-700 p-4 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-cyan-400 uppercase tracking-wider block mb-1">Manim Python Skript Prompti</span>
+                            <p class="text-xs text-slate-300 font-mono bg-slate-950 p-3 rounded-lg border border-slate-800 mb-3 select-all">
+                                Write a Manim Python script demonstrating electrostatic induction on a metallic conductor placed in an external uniform electric field. Show free electrons moving to the left side and positive charges to the right side.
+                            </p>
+                        </div>
+                        <button onclick="copyPrompt(this, 1)" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-lg text-xs font-medium transition border border-slate-700">Promptni Nusxalash</button>
+                    </div>
+
+                    <!-- Three.js Prompt -->
+                    <div class="bg-slate-900 border border-slate-700 p-4 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-cyan-400 uppercase tracking-wider block mb-1">Three.js 3D Simulyatsiya Prompti</span>
+                            <p class="text-xs text-slate-300 font-mono bg-slate-950 p-3 rounded-lg border border-slate-800 mb-3 select-all">
+                                Create a Three.js scene showing a 3D lightning rod on top of a building with particle ionization effects, electric field lines curving towards the sharp tip, and interactive camera controls.
+                            </p>
+                        </div>
+                        <button onclick="copyPrompt(this, 2)" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-lg text-xs font-medium transition border border-slate-700">Promptni Nusxalash</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Tab switching logic
+        function switchTab(tabNum) {
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`tab-${i}`).classList.add('hidden');
+                document.getElementById(`btn-tab-${i}`).className = "px-4 py-2 text-xs md:text-sm font-medium rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-800";
+            }
+            document.getElementById(`tab-${tabNum}`).classList.remove('hidden');
+            document.getElementById(`btn-tab-${tabNum}`).className = "px-4 py-2 text-xs md:text-sm font-medium rounded-lg transition-all bg-cyan-600 text-white shadow-sm";
+            
+            // Resize canvas accordingly
+            if (tabNum === 1) resizeCanvas1();
+            if (tabNum === 2) resizeCanvas2();
+            if (tabNum === 3) resizeCanvas3();
+        }
+
+        // Copy prompt helper
+        function copyPrompt(btn, type) {
+            const text = type === 1 
+                ? "Write a Manim Python script demonstrating electrostatic induction on a metallic conductor placed in an external uniform electric field. Show free electrons moving to the left side and positive charges to the right side."
+                : "Create a Three.js scene showing a 3D lightning rod on top of a building with particle ionization effects, electric field lines curving towards the sharp tip, and interactive camera controls.";
+            
+            document.execCommand('copy'); // fallback
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text);
+            }
+            const originalText = btn.innerText;
+            btn.innerText = "Nusxalandi! ✓";
+            btn.classList.add("text-emerald-400");
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove("text-emerald-400");
+            }, 2000);
+        }
+
+        // --- SIMULATION 1: Elektrostatik Induksiya ---
+        const canvas1 = document.getElementById('canvasTab1');
+        const ctx1 = canvas1.getContext('2d');
+        let fieldActive1 = false;
+        let electrons1 = [];
+
+        function initSim1() {
+            electrons1 = [];
+            for (let i = 0; i < 40; i++) {
+                electrons1.push({
+                    x: 180 + Math.random() * 240,
+                    y: 110 + Math.random() * 120,
+                    baseX: 180 + Math.random() * 240,
+                    baseY: 110 + Math.random() * 120,
+                    vx: 0,
+                    vy: 0
+                });
+            }
+        }
+
+        function toggleFieldTab1() {
+            fieldActive1 = !fieldActive1;
+            const btn = document.getElementById('fieldBtn1');
+            if (fieldActive1) {
+                btn.innerText = "Tashqi maydon: Yoqilgan";
+                btn.className = "px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs md:text-sm font-medium transition shadow";
+            } else {
+                btn.innerText = "Tashqi maydon: O'chiq";
+                btn.className = "px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs md:text-sm font-medium transition shadow";
+            }
+        }
+
+        function resetSim1() {
+            fieldActive1 = false;
+            const btn = document.getElementById('fieldBtn1');
+            btn.innerText = "Tashqi maydon: O'chiq";
+            btn.className = "px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs md:text-sm font-medium transition shadow";
+            initSim1();
+        }
+
+        function resizeCanvas1() {
+            canvas1.width = canvas1.parentElement.clientWidth;
+            canvas1.height = canvas1.parentElement.clientHeight;
+            if (electrons1.length === 0) initSim1();
+        }
+
+        function updateAndDrawSim1() {
+            ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+            
+            const cx = canvas1.width / 2;
+            const cy = canvas1.height / 2;
+
+            // Draw external field lines if active
+            if (fieldActive1) {
+                ctx1.strokeStyle = 'rgba(6, 182, 212, 0.4)';
+                ctx1.lineWidth = 1.5;
+                ctx1.setLineDash([4, 4]);
+                for (let y = 50; y < canvas1.height - 30; y += 40) {
+                    ctx1.beginPath();
+                    ctx1.moveTo(20, y);
+                    ctx1.lineTo(canvas1.width - 20, y);
+                    ctx1.stroke();
+                    // Arrowheads
+                    ctx1.fillStyle = 'rgba(6, 182, 212, 0.6)';
+                    ctx1.beginPath();
+                    ctx1.moveTo(canvas1.width - 25, y - 4);
+                    ctx1.lineTo(canvas1.width - 15, y);
+                    ctx1.lineTo(canvas1.width - 25, y + 4);
+                    ctx1.fill();
+                }
+                ctx1.setLineDash([]);
+            }
+
+            // Draw Conductor Body
+            const condWidth = 300;
+            const condHeight = 160;
+            const condX = cx - condWidth / 2;
+            const condY = cy - condHeight / 2;
+
+            ctx1.fillStyle = '#1e293b';
+            ctx1.strokeStyle = '#38bdf8';
+            ctx1.lineWidth = 2;
+            ctx1.beginPath();
+            ctx1.roundRect(condX, condY, condWidth, condHeight, 16);
+            ctx1.fill();
+            ctx1.stroke();
+
+            // Label
+            ctx1.fillStyle = '#94a3b8';
+            ctx1.font = '12px Inter';
+            ctx1.textAlign = 'center';
+            ctx1.fillText("O'tkazgich (Metall)", cx, condY + 24);
+
+            // Update & Draw Electrons
+            electrons1.forEach(e => {
+                let targetX = e.baseX;
+                if (fieldActive1) {
+                    targetX = e.baseX - 60; // Shift left due to field
+                }
+                e.x += (targetX - e.x) * 0.05;
+
+                // Draw electron (-)
+                ctx1.fillStyle = '#38bdf8';
+                ctx1.beginPath();
+                ctx1.arc(e.x, e.y, 4, 0, Math.PI * 2);
+                ctx1.fill();
+            });
+
+            // Induced charges indicators (+ on right, - on left)
+            if (fieldActive1) {
+                ctx1.fillStyle = '#ef4444';
+                ctx1.font = 'bold 18px Inter';
+                ctx1.fillText("- - -", condX + 25, cy + 6);
+                
+                ctx1.fillStyle = '#3b82f6';
+                ctx1.fillText("+ + +", condX + condWidth - 25, cy + 6);
+            }
+
+            requestAnimationFrame(updateAndDrawSim1);
+        }
+
+        // --- SIMULATION 2: Zaryad Sirt Taqsimlanishi ---
+        const canvas2 = document.getElementById('canvasTab2');
+        const ctx2 = canvas2.getContext('2d');
+        let currentShape = 1;
+
+        function setShape(shapeId) {
+            currentShape = shapeId;
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`shapeBtn${i}`).className = "px-3 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs font-medium transition";
+            }
+            document.getElementById(`shapeBtn${shapeId}`).className = "px-3 py-2 bg-cyan-600 text-white rounded-lg text-xs font-medium transition";
+            
+            const infoText = [
+                "Shar sirti: Zaryad bir tekis taqsimlangan (\u03c3 = const)",
+                "Cho'ziq sirt: Egri bo'laklarda zaryad zichligi ortib boradi",
+                "O'tkir uchli: Zaryad zichligi \u03c3 eng yuqori bo'lgan nuqta uch qismidir"
+            ];
+            document.getElementById('shapeInfo').innerText = infoText[shapeId - 1];
+        }
+
+        function resizeCanvas2() {
+            canvas2.width = canvas2.parentElement.clientWidth;
+            canvas2.height = canvas2.parentElement.clientHeight;
+        }
+
+        function updateAndDrawSim2() {
+            ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+            const cx = canvas2.width / 2;
+            const cy = canvas2.height / 2;
+
+            ctx2.save();
+            ctx2.translate(cx, cy);
+
+            if (currentShape === 1) {
+                // Sphere
+                ctx2.fillStyle = '#1e293b';
+                ctx2.strokeStyle = '#38bdf8';
+                ctx2.lineWidth = 3;
+                ctx2.beginPath();
+                ctx2.arc(0, 0, 70, 0, Math.PI * 2);
+                ctx2.fill();
+                ctx2.stroke();
+
+                // Uniform charges around
+                for (let i = 0; i < 12; i++) {
+                    let angle = (i / 12) * Math.PI * 2;
+                    let x = Math.cos(angle) * 88;
+                    let y = Math.sin(angle) * 88;
+                    ctx2.fillStyle = '#ef4444';
+                    ctx2.font = 'bold 14px Inter';
+                    ctx2.fillText("+", x - 4, y + 5);
+                }
+            } else if (currentShape === 2) {
+                // Ellipse
+                ctx2.fillStyle = '#1e293b';
+                ctx2.strokeStyle = '#38bdf8';
+                ctx2.lineWidth = 3;
+                ctx2.beginPath();
+                ctx2.ellipse(0, 0, 110, 50, 0, 0, Math.PI * 2);
+                ctx2.fill();
+                ctx2.stroke();
+
+                // Charges (more dense at ends)
+                for (let i = 0; i < 16; i++) {
+                    let angle = (i / 16) * Math.PI * 2;
+                    let x = Math.cos(angle) * 128;
+                    let y = Math.sin(angle) * 65;
+                    let isTip = Math.abs(Math.cos(angle)) > 0.7;
+                    ctx2.fillStyle = isTip ? '#ef4444' : '#3b82f6';
+                    ctx2.font = isTip ? 'bold 16px Inter' : '12px Inter';
+                    ctx2.fillText("+", x - 4, y + 5);
+                }
+            } else {
+                // Pear shape / Sharp tip
+                ctx2.fillStyle = '#1e293b';
+                ctx2.strokeStyle = '#38bdf8';
+                ctx2.lineWidth = 3;
+                ctx2.beginPath();
+                ctx2.moveTo(-80, -40);
+                ctx2.bezierCurveTo(-40, -70, 60, -30, 110, 0);
+                ctx2.bezierCurveTo(60, 30, -40, 70, -80, 40);
+                ctx2.closePath();
+                ctx2.fill();
+                ctx2.stroke();
+
+                // Charges (extreme concentration at the tip on the right)
+                for (let i = -6; i <= 6; i++) {
+                    let yOffset = i * 8;
+                    ctx2.fillStyle = '#ef4444';
+                    ctx2.font = 'bold 16px Inter';
+                    ctx2.fillText("+", 118 + Math.abs(i)*2, yOffset + 4);
+                }
+                for (let i = 0; i < 8; i++) {
+                    let angle = Math.PI + (i / 8) * Math.PI;
+                    let x = Math.cos(angle) * 70 - 20;
+                    let y = Math.sin(angle) * 35;
+                    ctx2.fillStyle = '#3b82f6';
+                    ctx2.font = '12px Inter';
+                    ctx2.fillText("+", x, y);
+                }
+            }
+
+            ctx2.restore();
+            requestAnimationFrame(updateAndDrawSim2);
+        }
+
+        // --- SIMULATION 3: Uchlar Effekti va Chaqmoq Qaytargich ---
+        const canvas3 = document.getElementById('canvasTab3');
+        const ctx3 = canvas3.getContext('2d');
+        let lightningActive = false;
+        let rodEnabled = true;
+        let particles3 = [];
+
+        function toggleLightningRod() {
+            rodEnabled = !rodEnabled;
+            const btn = document.getElementById('rodBtn');
+            if (rodEnabled) {
+                btn.innerText = "Chaqmoq qaytargich: Yoqilgan";
+                btn.className = "px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs md:text-sm font-medium transition shadow";
+            } else {
+                btn.innerText = "Chaqmoq qaytargich: O'chirilgan";
+                btn.className = "px-4 py-2 bg-slate-600 hover:bg-slate-500 text-white rounded-lg text-xs md:text-sm font-medium transition shadow";
+            }
+        }
+
+        function triggerLightning() {
+            lightningActive = true;
+            document.getElementById('lightningStatus').innerText = rodEnabled ? "Chaqmoq qaytargich orqali yerga oqizildi!" : "XAVF: Bino chaqmoq urishiga uchradi!";
+            document.getElementById('lightningStatus').className = rodEnabled ? "text-xs text-emerald-400 font-semibold" : "text-xs text-red-400 font-semibold";
+            setTimeout(() => {
+                lightningActive = false;
+                document.getElementById('lightningStatus').innerText = "Tizim barqaror";
+                document.getElementById('lightningStatus').className = "text-xs text-slate-400";
+            }, 800);
+        }
+
+        function resizeCanvas3() {
+            canvas3.width = canvas3.parentElement.clientWidth;
+            canvas3.height = canvas3.parentElement.clientHeight;
+        }
+
+        function updateAndDrawSim3() {
+            ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
+            const cx = canvas3.width / 2;
+            const cy = canvas3.height / 2;
+
+            // Draw Building
+            const bWidth = 120;
+            const bHeight = 140;
+            const bx = cx - bWidth / 2;
+            const by = canvas3.height - bHeight - 40;
+
+            ctx3.fillStyle = '#334155';
+            ctx3.fillRect(bx, by, bWidth, bHeight);
+
+            // Windows
+            ctx3.fillStyle = '#64748b';
+            for (let wx = bx + 15; wx < bx + bWidth - 20; wx += 30) {
+                for (let wy = by + 20; wy < by + bHeight - 20; wy += 35) {
+                    ctx3.fillRect(wx, wy, 16, 22);
+                }
+            }
+
+            // Lightning Rod & Tip
+            if (rodEnabled) {
+                ctx3.strokeStyle = '#38bdf8';
+                ctx3.lineWidth = 4;
+                ctx3.beginPath();
+                ctx3.moveTo(cx, by);
+                ctx3.lineTo(cx, by - 45);
+                ctx3.stroke();
+
+                // Sparkles at sharp tip
+                ctx3.fillStyle = '#38bdf8';
+                ctx3.beginPath();
+                ctx3.arc(cx, by - 45, 4, 0, Math.PI * 2);
+                ctx3.fill();
+            }
+
+            // Storm cloud on top
+            ctx3.fillStyle = '#0f172a';
+            ctx3.beginPath();
+            ctx3.ellipse(cx, 60, 180, 35, 0, 0, Math.PI * 2);
+            ctx3.fill();
+            ctx3.fillStyle = '#1e293b';
+            ctx3.beginPath();
+            ctx3.arc(cx - 80, 50, 40, 0, Math.PI * 2);
+            ctx3.arc(cx + 80, 50, 40, 0, Math.PI * 2);
+            ctx3.fill();
+
+            // Cloud charges (-)
+            ctx3.fillStyle = '#38bdf8';
+            ctx3.font = '14px Inter';
+            for (let i = -3; i <= 3; i++) {
+                ctx3.fillText("- -", cx + i * 45 - 10, 65);
+            }
+
+            // Lightning Bolt effect
+            if (lightningActive) {
+                ctx3.strokeStyle = '#f59e0b';
+                ctx3.lineWidth = 3;
+                ctx3.beginPath();
+                ctx3.moveTo(cx + (Math.random() * 10 - 5), 95);
+                let targetX = rodEnabled ? cx : bx + 20;
+                ctx3.lineTo(targetX, rodEnabled ? by - 45 : by);
+                ctx3.stroke();
+
+                // Flash overlay
+                ctx3.fillStyle = 'rgba(245, 158, 11, 0.15)';
+                ctx3.fillRect(0, 0, canvas3.width, canvas3.height);
+            }
+
+            requestAnimationFrame(updateAndDrawSim3);
+        }
+
+        // Window resize handlers
+        window.addEventListener('resize', () => {
+            resizeCanvas1();
+            resizeCanvas2();
+            resizeCanvas3();
+        });
+
+        // Initial setup on load
+        window.onload = function() {
+            resizeCanvas1();
+            resizeCanvas2();
+            resizeCanvas3();
+            updateAndDrawSim1();
+            updateAndDrawSim2();
+            updateAndDrawSim3();
+        };
+    </script>
+</body>
+</html>

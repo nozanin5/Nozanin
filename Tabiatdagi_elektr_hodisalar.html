@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="uz" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-Sinf Fizika: Tabiatdagi elektr hodisalar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        canvas { touch-action: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 h-full flex flex-col antialiased">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-amber-500 text-white p-2.5 rounded-xl shadow-md">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900">8-Sinf Fizika</h1>
+                    <p class="text-xs text-slate-500">Tabiatdagi elektr hodisalar</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="switchTab('theory')" id="btn-theory" class="px-4 py-2 text-sm font-medium rounded-lg bg-amber-500 text-white shadow-xs transition-all">Nazariya</button>
+                <button onclick="switchTab('simulations')" id="btn-simulations" class="px-4 py-2 text-sm font-medium rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">Simulyatsiyalar</button>
+                <button onclick="switchTab('ai')" id="btn-ai" class="px-4 py-2 text-sm font-medium rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">AI Yordamchi</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 overflow-y-auto">
+
+        <!-- THEORY SECTION -->
+        <div id="tab-theory" class="space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">Mavzu: Tabiatdagi elektr hodisalar</h2>
+                <p class="text-slate-600 leading-relaxed mb-6">
+                    Tabiatda elektr hodisalari juda keng tarqalgan bo‘lib, ular ulkan miqyosdagi atmosferaviy jarayonlardan tortib, tirik organizmlardagi mikroelektr jarayonlarigacha bo‘lgan qamrovni o‘z ichiga oladi. Atmosferadagi elektrodinamik jarayonlar momaqaldiroq, chaqmoq, va St. Elmo nurlari kabi ajoyib ko‘rinishlarda namoyon bo‘ladi.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-amber-50/50 p-5 rounded-xl border border-amber-100">
+                        <div class="text-amber-600 font-semibold mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs">1</span>
+                            <span>Chaqmoq va Momaqaldiroq</span>
+                        </div>
+                        <p class="text-sm text-slate-600">Bulutlar ichidagi suv tomchilari va muz kristallarining o‘zaro ishqalanishi natijasida ulkan elektr zaryadlari to‘planadi. Potensiallar farqi millionlab voltga yetganda kuchli elektr razryad (chaqmoq) yuzaga keladi.</p>
+                    </div>
+                    <div class="bg-blue-50/50 p-5 rounded-xl border border-blue-100">
+                        <div class="text-blue-600 font-semibold mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">2</span>
+                            <span>Atmosfera ionlanishi</span>
+                        </div>
+                        <p class="text-sm text-slate-600">Kosmik nurlar va quyosh nurlanishi ta'sirida havo molekulalari ionlanib, musbat ionlar va erkin elektronlarga ajraladi. Bu atmosferaning doimiy elektr o'tkazuvchanligini ta'minlaydi.</p>
+                    </div>
+                    <div class="bg-indigo-50/50 p-5 rounded-xl border border-indigo-100">
+                        <div class="text-indigo-600 font-semibold mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs">3</span>
+                            <span>Chaqmoq qaytargichlar</span>
+                        </div>
+                        <p class="text-sm text-slate-600">Binolarni chaqmoq urishidan himoya qilish uchun o‘tkir uchli metall novda (chaqmoq qaytargich) o‘rnatiladi. U o‘tkir uchi orqali zaryadni zararsiz yerga oqizib yuboradi.</p>
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-100 pt-6">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-3">Asosiy tushunchalar va xavfsizlik:</h3>
+                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                        <li><strong>Bulutlar qutblanishi:</strong> Odatda momaqaldiroq bulutining yuqori qismi musbat (+), pastki qismi esa manfiy (-) zaryadlanadi.</li>
+                        <li><strong>St. Elmo nurlari:</strong> Kuchli elektr maydonida baland va o‘tkir jismlar (kema machtalari, tog' cho'qilari) uchida paydo bo‘ladigan moviy rangli nur taratuvchi tojsimon razryad.</li>
+                        <li><strong>Xavfsizlik qoidalari:</strong> Momaqaldiroq paytida ochiq joyda turish, baland daraxtlar ostiga pana topish hamda metall buyumlardan uzoqlashish zarur.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SIMULATIONS SECTION -->
+        <div id="tab-simulations" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- SIMULATION 1: CLOUD VOLTAGE & LIGHTNING -->
+                <div class="bg-white rounded-2xl p-5 shadow-xs border border-slate-200 flex flex-col">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-slate-900 text-base">1. Chaqmoq Hosil Bo'lishi</h3>
+                        <span class="text-xs bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full font-medium">Interaktiv</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-4">Bulut va Yer orasidagi kuchlanishni oshirib, chaqmoq sachrashini kuzating.</p>
+                    <div class="flex-1 bg-slate-900 rounded-xl overflow-hidden relative min-h-[220px]">
+                        <canvas id="sim1" class="w-full h-full block"></canvas>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between gap-2">
+                        <button onclick="sim1TriggerLightning()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-medium transition-all shadow-xs">Chaqmoq urdirish</button>
+                        <span id="sim1-status" class="text-xs text-slate-400 font-medium">Kuchlanish: Normal</span>
+                    </div>
+                </div>
+
+                <!-- SIMULATION 2: ATMOSPHERIC IONIZATION -->
+                <div class="bg-white rounded-2xl p-5 shadow-xs border border-slate-200 flex flex-col">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-slate-900 text-base">2. Atmosfera Ionlanishi</h3>
+                        <span class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full font-medium">Zarrachalar</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-4">Havo molekulalarining ionlanishi va zaryadlangan zarralar harakatini ko'ring.</p>
+                    <div class="flex-1 bg-slate-900 rounded-xl overflow-hidden relative min-h-[220px]">
+                        <canvas id="sim2" class="w-full h-full block"></canvas>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between gap-2">
+                        <button onclick="sim2ToggleIon()" id="sim2-btn" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-medium transition-all shadow-xs">Maydonni yoqish</button>
+                        <span id="sim2-status" class="text-xs text-slate-400 font-medium">Ionlar: Harakatda</span>
+                    </div>
+                </div>
+
+                <!-- SIMULATION 3: LIGHTNING ROD -->
+                <div class="bg-white rounded-2xl p-5 shadow-xs border border-slate-200 flex flex-col">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-slate-900 text-base">3. Chaqmoq Qaytargich</h3>
+                        <span class="text-xs bg-indigo-100 text-indigo-700 px-2.5 py-1 rounded-full font-medium">Himoya</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-4">Chaqmoq qaytargich bino atrofidagi elektr maydonini qanday o'zgartirishini kuzating.</p>
+                    <div class="flex-1 bg-slate-900 rounded-xl overflow-hidden relative min-h-[220px]">
+                        <canvas id="sim3" class="w-full h-full block"></canvas>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between gap-2">
+                        <button onclick="sim3ToggleRod()" id="sim3-btn" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-medium transition-all shadow-xs">Qaytargichni yoqish</button>
+                        <span id="sim3-status" class="text-xs text-slate-400 font-medium">Himoya: Faol</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- AI PROMPT SECTION -->
+        <div id="tab-ai" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200 max-w-3xl mx-auto">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="bg-purple-600 text-white p-2.5 rounded-xl shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">Gemini AI Fizika Yordamchisi</h2>
+                        <p class="text-xs text-slate-500">Mavzu bo'yicha savollaringizni bering va sun'iy intellektdan javob oling.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Savol yoki topshiriq kiriting:</label>
+                        <textarea id="ai-prompt" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm text-slate-800 outline-none focus:border-amber-500 transition-all" placeholder="Masalan: Momaqaldiroq paytida nima uchun metall buyumlardan uzoq turish kerak?"></textarea>
+                    </div>
+                    <button onclick="askAI()" id="ai-btn" class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-medium rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2">
+                        <span>Javob olish</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </button>
+                    
+                    <div id="ai-response-container" class="hidden mt-6 bg-slate-50 border border-slate-200 rounded-xl p-5">
+                        <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Sun'iy intellekt javobi:</h4>
+                        <div id="ai-response-text" class="text-sm text-slate-700 leading-relaxed"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Tab switching controller
+        function switchTab(tab) {
+            ['theory', 'simulations', 'ai'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                document.getElementById(`btn-${t}`).className = "px-4 py-2 text-sm font-medium rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all";
+            });
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+            document.getElementById(`btn-${tab}`).className = "px-4 py-2 text-sm font-medium rounded-lg bg-amber-500 text-white shadow-xs transition-all";
+            
+            if (tab === 'simulations') {
+                resizeCanvases();
+            }
+        }
+
+        // Canvas sizing helper
+        function resizeCanvases() {
+            ['sim1', 'sim2', 'sim3'].forEach(id => {
+                const canvas = document.getElementById(id);
+                if (canvas && canvas.parentElement) {
+                    canvas.width = canvas.parentElement.clientWidth;
+                    canvas.height = canvas.parentElement.clientHeight || 220;
+                }
+            });
+        }
+        window.addEventListener('resize', resizeCanvases);
+
+        // --- SIMULATION 1: Lightning Generation ---
+        const canvas1 = document.getElementById('sim1');
+        const ctx1 = canvas1 ? canvas1.getContext('2d') : null;
+        let lightningActive = false;
+        let lightningTimer = 0;
+
+        function sim1TriggerLightning() {
+            lightningActive = true;
+            lightningTimer = 15;
+            document.getElementById('sim1-status').innerText = "Kuchlanish: RAZRYAD!";
+            setTimeout(() => {
+                lightningActive = false;
+                document.getElementById('sim1-status').innerText = "Kuchlanish: Normal";
+            }, 500);
+        }
+
+        function drawSim1() {
+            if (!ctx1 || !canvas1) return;
+            ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+
+            // Draw Cloud
+            ctx1.fillStyle = '#475569';
+            ctx1.beginPath();
+            ctx1.ellipse(canvas1.width / 2, 50, 90, 25, 0, 0, Math.PI * 2);
+            ctx1.fill();
+
+            // Draw Ground
+            ctx1.fillStyle = '#1e293b';
+            ctx1.fillRect(0, canvas1.height - 30, canvas1.width, 30);
+
+            // Draw charges inside cloud
+            ctx1.fillStyle = '#f59e0b';
+            ctx1.font = 'bold 14px Inter';
+            ctx1.fillText('-  -  -  -  -  -  -', canvas1.width / 2 - 55, 55);
+
+            if (lightningActive) {
+                ctx1.strokeStyle = '#facc15';
+                ctx1.lineWidth = 3;
+                ctx1.beginPath();
+                let x = canvas1.width / 2;
+                let y = 75;
+                ctx1.moveTo(x, y);
+                while (y < canvas1.height - 30) {
+                    x += (Math.random() - 0.5) * 30;
+                    y += 20;
+                    ctx1.lineTo(x, y);
+                }
+                ctx1.stroke();
+            }
+
+            requestAnimationFrame(drawSim1);
+        }
+
+        // --- SIMULATION 2: Atmospheric Ionization ---
+        const canvas2 = document.getElementById('sim2');
+        const ctx2 = canvas2 ? canvas2.getContext('2d') : null;
+        let sim2FieldOn = true;
+        let ions = [];
+
+        for (let i = 0; i < 25; i++) {
+            ions.push({
+                x: Math.random() * 300,
+                y: Math.random() * 200,
+                vx: (Math.random() - 0.5) * 1.5,
+                vy: (Math.random() - 0.5) * 1.5,
+                type: Math.random() > 0.5 ? '+' : '-'
+            });
+        }
+
+        function sim2ToggleIon() {
+            sim2FieldOn = !sim2FieldOn;
+            document.getElementById('sim2-btn').className = `px-3 py-1.5 ${sim2FieldOn ? 'bg-blue-600 hover:bg-blue-700' : 'bg-slate-700 hover:bg-slate-600'} text-white rounded-lg text-xs font-medium transition-all shadow-xs`;
+            document.getElementById('sim2-status').innerText = sim2FieldOn ? "Ionlar: Harakatda" : "Ionlar: Tinch";
+        }
+
+        function drawSim2() {
+            if (!ctx2 || !canvas2) return;
+            ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+
+            ions.forEach(ion => {
+                if (sim2FieldOn) {
+                    ion.x += ion.vx + (ion.type === '+' ? 0.8 : -0.8);
+                    if (ion.x > canvas2.width) ion.x = 0;
+                    if (ion.x < 0) ion.x = canvas2.width;
+                }
+
+                ctx2.fillStyle = ion.type === '+' ? '#ef4444' : '#3b82f6';
+                ctx2.beginPath();
+                ctx2.arc(ion.x, ion.y, 5, 0, Math.PI * 2);
+                ctx2.fill();
+                ctx2.fillStyle = '#ffffff';
+                ctx2.font = '10px Inter';
+                ctx2.fillText(ion.type, ion.x - 3, ion.y + 3);
+            });
+
+            requestAnimationFrame(drawSim2);
+        }
+
+        // --- SIMULATION 3: Lightning Rod ---
+        const canvas3 = document.getElementById('sim3');
+        const ctx3 = canvas3 ? canvas3.getContext('2d') : null;
+        let rodActive = true;
+
+        function sim3ToggleRod() {
+            rodActive = !rodActive;
+            document.getElementById('sim3-btn').className = `px-3 py-1.5 ${rodActive ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-slate-700 hover:bg-slate-600'} text-white rounded-lg text-xs font-medium transition-all shadow-xs`;
+            document.getElementById('sim3-status').innerText = rodActive ? "Himoya: Faol" : "Himoya: O'chirilgan";
+        }
+
+        function drawSim3() {
+            if (!ctx3 || !canvas3) return;
+            ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
+
+            const cx = canvas3.width / 2;
+            const cy = canvas3.height - 30;
+
+            // Draw House
+            ctx3.fillStyle = '#334155';
+            ctx3.fillRect(cx - 40, cy - 60, 80, 60);
+
+            // Draw Lightning Rod
+            if (rodActive) {
+                ctx3.strokeStyle = '#facc15';
+                ctx3.lineWidth = 2;
+                ctx3.beginPath();
+                ctx3.moveTo(cx, cy - 60);
+                ctx3.lineTo(cx, cy - 100);
+                ctx3.stroke();
+
+                // Shield effect lines
+                ctx3.strokeStyle = 'rgba(99, 102, 241, 0.4)';
+                ctx3.setLineDash([4, 4]);
+                ctx3.beginPath();
+                ctx3.arc(cx, cy - 100, 60, Math.PI, Math.PI * 2);
+                ctx3.stroke();
+                ctx3.setLineDash([]);
+            }
+
+            requestAnimationFrame(drawSim3);
+        }
+
+        // --- AI PROMPT INTEGRATION ---
+        async function askAI() {
+            const prompt = document.getElementById('ai-prompt').value.trim();
+            const respContainer = document.getElementById('ai-response-container');
+            const respText = document.getElementById('ai-response-text');
+            const btn = document.getElementById('ai-btn');
+
+            if (!prompt) {
+                alert("Iltimos, savol kiriting!");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = `<span>O'ylanmoqda...</span>`;
+            respContainer.classList.add('hidden');
+
+            const systemPrompt = "Siz 8-sinf fizika fanidan tajribali o'qituvchisiz. O'quvchining 'Tabiatdagi elektr hodisalar' mavzusidagi savoliga o'zbek tilida aniq, tushunarli va qisqacha javob bering.";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (text) {
+                    respText.innerText = text;
+                    respContainer.classList.remove('hidden');
+                } else {
+                    respText.innerText = "Kechirasiz, javob olishda xatolik yuz berdi.";
+                    respContainer.classList.remove('hidden');
+                }
+            } catch (e) {
+                respText.innerText = "Tarmoqda xatolik yuz berdi. Qayta urinib ko'ring.";
+                respContainer.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>Javob olish</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>`;
+            }
+        }
+
+        // Initialize loops
+        window.onload = function() {
+            resizeCanvases();
+            drawSim1();
+            drawSim2();
+            drawSim3();
+        };
+    </script>
+</body>
+</html>

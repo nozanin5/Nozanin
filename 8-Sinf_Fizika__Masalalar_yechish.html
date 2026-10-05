@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="uz" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-Sinf Fizika: Masalalar yechish</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        canvas { touch-action: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 h-full flex flex-col antialiased">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-600 text-white p-2.5 rounded-xl shadow-md">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900">8-Sinf Fizika</h1>
+                    <p class="text-xs text-slate-500">Mavzu: Masalalar yechish (Elektrostatika)</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="switchTab('theory')" id="btn-theory" class="px-4 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white shadow-xs transition-all">Formulalar & Nazariya</button>
+                <button onclick="switchTab('simulations')" id="btn-simulations" class="px-4 py-2 text-sm font-medium rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">Interaktiv Masalalar</button>
+                <button onclick="switchTab('ai')" id="btn-ai" class="px-4 py-2 text-sm font-medium rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">AI Yordamchi</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 overflow-y-auto">
+
+        <!-- THEORY & FORMULAS SECTION -->
+        <div id="tab-theory" class="space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">Elektrostatika Asosiy Formulalari va Qonunlari</h2>
+                <p class="text-slate-600 leading-relaxed mb-6">
+                    8-sinf fizika kursida elektr zaryadlari, ularning o'zaro ta'siri hamda zaryadlar saqlanish qonuniga doir masalalarni yechishda quyidagi asosiy qonuniyatlar va formulalardan foydalaniladi.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-indigo-50/50 p-5 rounded-xl border border-indigo-100">
+                        <div class="text-indigo-600 font-semibold mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs">1</span>
+                            <span>Kulon Qonuni</span>
+                        </div>
+                        <p class="text-sm font-slate-600 mb-3">Nuqtaviy zaryadlarning o'zaro ta'sir kuchi:</p>
+                        <div class="bg-white p-3 rounded-lg border border-indigo-200 text-center font-mono font-bold text-indigo-700 text-sm">
+                            F = k · (|q₁ · q₂|) / r²
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Bu yerda k = 9·10⁹ N·m²/Kl²</p>
+                    </div>
+
+                    <div class="bg-blue-50/50 p-5 rounded-xl border border-blue-100">
+                        <div class="text-blue-600 font-semibold mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">2</span>
+                            <span>Zaryadlar Saqlanishi</span>
+                        </div>
+                        <p class="text-sm font-slate-600 mb-3">O'tkazgichlar tutashganda umumiy zaryad:</p>
+                        <div class="bg-white p-3 rounded-lg border border-blue-200 text-center font-mono font-bold text-blue-700 text-sm">
+                            q_umumiy = q₁ + q₂
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Bir xil o'tkazgichlar uchun: q' = (q₁ + q₂) / 2</p>
+                    </div>
+
+                    <div class="bg-emerald-50/50 p-5 rounded-xl border border-emerald-100">
+                        <div class="text-emerald-600 font-semibold mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs">3</span>
+                            <span>Elektr Maydon Kuchlanganligi</span>
+                        </div>
+                        <p class="text-sm font-slate-600 mb-3">Maydonning zaryadga ta'sir etish kuchi:</p>
+                        <div class="bg-white p-3 rounded-lg border border-emerald-200 text-center font-mono font-bold text-emerald-700 text-sm">
+                            E = F / q
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Birlik: [N/Kl]</p>
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-100 pt-6">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-3">Masalalar yechish uchun tavsiyalar:</h3>
+                    <ul class="list-disc list-inside space-y-2 text-slate-600 text-sm">
+                        <li><strong>1-qadam:</strong> Berilgan kattaliklarni Xalqaro birliklar sistemasiga (SI) o'tkazing (masalan, mikroklon - µKl ni Kl ga, santimetrni metrga).</li>
+                        <li><strong>2-qadam:</strong> Masalaning shartiga ko'ra sxematik chizma yoki holat tasvirini tuzib oling.</li>
+                        <li><strong>3-qadam:</strong> Tegishli fizik qonun (Kulon qonuni, zaryad saqlanishi) formulasini yozing va noma'lum kattalikni toping.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SIMULATIONS SECTION -->
+        <div id="tab-simulations" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- SIMULATION 1: COULOMB LAW CALCULATOR & VIZ -->
+                <div class="bg-white rounded-2xl p-5 shadow-xs border border-slate-200 flex flex-col">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-slate-900 text-base">1. Kulon Qonuni Masalasi</h3>
+                        <span class="text-xs bg-indigo-100 text-indigo-700 px-2.5 py-1 rounded-full font-medium">Hisoblagich</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-3">Ikki zaryad orasidagi masofa va qiymatni o'zgartirib kuchni hisoblang.</p>
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <label class="text-xs font-semibold text-slate-600">Zaryad 1 (q₁): <span id="c-q1-val" class="text-indigo-600 font-bold">2</span> µKl</label>
+                            <input type="range" id="c-q1" min="1" max="10" value="2" class="w-full accent-indigo-600" oninput="updateCoulomb()">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-slate-600">Zaryad 2 (q₂): <span id="c-q2-val" class="text-indigo-600 font-bold">4</span> µKl</label>
+                            <input type="range" id="c-q2" min="1" max="10" value="4" class="w-full accent-indigo-600" oninput="updateCoulomb()">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-slate-600">Masofa (r): <span id="c-r-val" class="text-indigo-600 font-bold">0.1</span> m</label>
+                            <input type="range" id="c-r" min="5" max="50" value="10" class="w-full accent-indigo-600" oninput="updateCoulomb()">
+                        </div>
+                    </div>
+                    <div class="bg-indigo-50/60 p-3 rounded-xl border border-indigo-100 mt-auto text-center">
+                        <span class="text-xs text-slate-500 block">Ta'sir etish kuchi (F):</span>
+                        <span id="c-result" class="text-lg font-bold text-indigo-700">7.2 N</span>
+                    </div>
+                </div>
+
+                <!-- SIMULATION 2: CHARGE CONSERVATION SIMULATOR -->
+                <div class="bg-white rounded-2xl p-5 shadow-xs border border-slate-200 flex flex-col">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-slate-900 text-base">2. Zaryadlar Saqlanishi</h3>
+                        <span class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full font-medium">O'tkazgichlar</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-3">Bir xil ikkita sharcha tutashtirilganda zaryad qanday taqsimlanishini ko'ring.</p>
+                    <div class="flex-1 bg-slate-900 rounded-xl overflow-hidden relative min-h-[160px] flex items-center justify-center p-4">
+                        <canvas id="sim-charges" class="w-full h-full block"></canvas>
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="resetCharges()" class="flex-1 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg text-xs font-medium transition-all">Qayta tiklash</button>
+                        <button onclick="touchSpheres()" class="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-medium transition-all shadow-xs">Tutashtirish</button>
+                    </div>
+                </div>
+
+                <!-- SIMULATION 3: ELECTRIC FIELD INTENSITY -->
+                <div class="bg-white rounded-2xl p-5 shadow-xs border border-slate-200 flex flex-col">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-slate-900 text-base">3. Maydon Kuchlanganligi</h3>
+                        <span class="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-medium">Kuch chiziqlari</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-3">Nuqtaviy zaryad atrofidagi elektr maydon kuchlanganligi E ni o'rganing.</p>
+                    <div class="flex-1 bg-slate-900 rounded-xl overflow-hidden relative min-h-[160px]">
+                        <canvas id="sim-field" class="w-full h-full block"></canvas>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between">
+                        <span id="field-info" class="text-xs text-slate-600 font-medium">Zaryad: +Q (Musbat)</span>
+                        <button onclick="toggleFieldSign()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-medium transition-all shadow-xs">Ishorasini o'zgartirish</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- AI PROMPT SECTION -->
+        <div id="tab-ai" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200 max-w-3xl mx-auto">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="bg-purple-600 text-white p-2.5 rounded-xl shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">Gemini AI Masala Yechish Yordamchisi</h2>
+                        <p class="text-xs text-slate-500">Istalgan elektrostatika masalasini kiriting va sun'iy intellektdan batafsil yechim oling.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Masala shartini yozing:</label>
+                        <textarea id="ai-prompt" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm text-slate-800 outline-none focus:border-indigo-600 transition-all" placeholder="Masalan: Ikki nuqtaviy zaryad orasidagi masofa 2 marta oshirilsa, ularning o'zaro ta'sir kuchi qanday o'zgaradi?"></textarea>
+                    </div>
+                    <button onclick="askAI()" id="ai-btn" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2">
+                        <span>Yechimni topish</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </button>
+                    
+                    <div id="ai-response-container" class="hidden mt-6 bg-slate-50 border border-slate-200 rounded-xl p-5">
+                        <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Sun'iy intellekt yechimi:</h4>
+                        <div id="ai-response-text" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Tab switching controller
+        function switchTab(tab) {
+            ['theory', 'simulations', 'ai'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                document.getElementById(`btn-${t}`).className = "px-4 py-2 text-sm font-medium rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all";
+            });
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+            document.getElementById(`btn-${tab}`).className = "px-4 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white shadow-xs transition-all";
+            
+            if (tab === 'simulations') {
+                resizeCanvases();
+            }
+        }
+
+        function resizeCanvases() {
+            ['sim-charges', 'sim-field'].forEach(id => {
+                const canvas = document.getElementById(id);
+                if (canvas && canvas.parentElement) {
+                    canvas.width = canvas.parentElement.clientWidth;
+                    canvas.height = canvas.parentElement.clientHeight || 160;
+                }
+            });
+        }
+        window.addEventListener('resize', resizeCanvases);
+
+        // --- SIMULATION 1: Coulomb Law ---
+        function updateCoulomb() {
+            const q1 = parseFloat(document.getElementById('c-q1').value) * 1e-6;
+            const q2 = parseFloat(document.getElementById('c-q2').value) * 1e-6;
+            const r = parseFloat(document.getElementById('c-r').value) / 100;
+
+            document.getElementById('c-q1-val').innerText = (q1 * 1e6).toFixed(0);
+            document.getElementById('c-q2-val').innerText = (q2 * 1e6).toFixed(0);
+            document.getElementById('c-r-val').innerText = r.toFixed(2);
+
+            const k = 9e9;
+            const F = (k * Math.abs(q1 * q2)) / (r * r);
+
+            let resText = F < 1 ? (F * 1000).toFixed(2) + " mN" : F < 1000 ? F.toFixed(2) + " N" : (F / 1000).toFixed(2) + " kN";
+            document.getElementById('c-result').innerText = resText;
+        }
+
+        // --- SIMULATION 2: Charge Conservation ---
+        const canvasCharges = document.getElementById('sim-charges');
+        const ctxCharges = canvasCharges ? canvasCharges.getContext('2d') : null;
+        let sphere1 = { q: +8, x: 70, y: 80, radius: 25 };
+        let sphere2 = { q: -2, x: 230, y: 80, radius: 25 };
+        let touching = false;
+        let animProgress = 0;
+
+        function resetCharges() {
+            sphere1.q = +8;
+            sphere2.q = -2;
+            sphere1.x = 70;
+            sphere2.x = 230;
+            touching = false;
+            animProgress = 0;
+        }
+
+        function touchSpheres() {
+            touching = true;
+            animProgress = 0;
+        }
+
+        function drawChargesSim() {
+            if (!ctxCharges || !canvasCharges) return;
+            ctxCharges.clearRect(0, 0, canvasCharges.width, canvasCharges.height);
+
+            // Center spheres if canvas resized
+            let targetX1 = canvasCharges.width / 2 - 60;
+            let targetX2 = canvasCharges.width / 2 + 60;
+
+            if (touching) {
+                if (sphere1.x < canvasCharges.width / 2 - 25) {
+                    sphere1.x += 2;
+                    sphere2.x -= 2;
+                } else {
+                    if (animProgress === 0) {
+                        let avg = (sphere1.q + sphere2.q) / 2;
+                        sphere1.q = avg;
+                        sphere2.q = avg;
+                        animProgress = 1;
+                    }
+                    if (sphere1.x > targetX1) {
+                        sphere1.x -= 1;
+                        sphere2.x += 1;
+                    }
+                }
+            } else {
+                sphere1.x = targetX1;
+                sphere2.x = targetX2;
+            }
+
+            // Draw Sphere 1
+            ctxCharges.fillStyle = sphere1.q > 0 ? '#ef4444' : sphere1.q < 0 ? '#3b82f6' : '#94a3b8';
+            ctxCharges.beginPath();
+            ctxCharges.arc(sphere1.x, sphere1.y, sphere1.radius, 0, Math.PI * 2);
+            ctxCharges.fill();
+            ctxCharges.fillStyle = '#ffffff';
+            ctxCharges.font = 'bold 12px Inter';
+            ctxCharges.textAlign = 'center';
+            ctxCharges.fillText((sphere1.q > 0 ? '+' : '') + sphere1.q + ' Kl', sphere1.x, sphere1.y + 4);
+
+            // Draw Sphere 2
+            ctxCharges.fillStyle = sphere2.q > 0 ? '#ef4444' : sphere2.q < 0 ? '#3b82f6' : '#94a3b8';
+            ctxCharges.beginPath();
+            ctxCharges.arc(sphere2.x, sphere2.y, sphere2.radius, 0, Math.PI * 2);
+            ctxCharges.fill();
+            ctxCharges.fillStyle = '#ffffff';
+            ctxCharges.fillText((sphere2.q > 0 ? '+' : '') + sphere2.q + ' Kl', sphere2.x, sphere2.y + 4);
+
+            requestAnimationFrame(drawChargesSim);
+        }
+
+        // --- SIMULATION 3: Electric Field Intensity ---
+        const canvasField = document.getElementById('sim-field');
+        const ctxField = canvasField ? canvasField.getContext('2d') : null;
+        let fieldPositive = true;
+
+        function toggleFieldSign() {
+            fieldPositive = !fieldPositive;
+            document.getElementById('field-info').innerText = fieldPositive ? "Zaryad: +Q (Musbat)" : "Zaryad: -Q (Manfiy)";
+        }
+
+        function drawFieldSim() {
+            if (!ctxField || !canvasField) return;
+            ctxField.clearRect(0, 0, canvasField.width, canvasField.height);
+
+            const cx = canvasField.width / 2;
+            const cy = canvasField.height / 2;
+
+            // Draw Electric field lines radiating
+            ctxField.strokeStyle = 'rgba(16, 185, 129, 0.4)';
+            ctxField.lineWidth = 1.5;
+            for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 4) {
+                ctxField.beginPath();
+                let x1 = cx + Math.cos(angle) * 20;
+                let y1 = cy + Math.sin(angle) * 20;
+                let x2 = cx + Math.cos(angle) * 75;
+                let y2 = cy + Math.sin(angle) * 75;
+                if (!fieldPositive) {
+                    let temp = x1; x1 = x2; x2 = temp;
+                    temp = y1; y1 = y2; y2 = temp;
+                }
+                ctxField.moveTo(x1, y1);
+                ctxField.lineTo(x2, y2);
+                ctxField.stroke();
+            }
+
+            // Draw Center Charge
+            ctxField.fillStyle = fieldPositive ? '#ef4444' : '#3b82f6';
+            ctxField.beginPath();
+            ctxField.arc(cx, cy, 18, 0, Math.PI * 2);
+            ctxField.fill();
+            ctxField.fillStyle = '#ffffff';
+            ctxField.font = 'bold 12px Inter';
+            ctxField.textAlign = 'center';
+            ctxField.fillText(fieldPositive ? '+' : '-', cx, cy + 4);
+
+            requestAnimationFrame(drawFieldSim);
+        }
+
+        // --- AI PROMPT INTEGRATION ---
+        async function askAI() {
+            const prompt = document.getElementById('ai-prompt').value.trim();
+            const respContainer = document.getElementById('ai-response-container');
+            const respText = document.getElementById('ai-response-text');
+            const btn = document.getElementById('ai-btn');
+
+            if (!prompt) {
+                alert("Iltimos, masala shartini kiriting!");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = `<span>Yechilmoqda...</span>`;
+            respContainer.classList.add('hidden');
+
+            const systemPrompt = "Siz 8-sinf fizika fanidan tajribali o'qituvchisiz. O'quvchining elektrostatika mavzusiga oid masalasiga o'zbek tilida qadam-baqadam, formula va tushuntirishlar bilan batafsil yechim bering.";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (text) {
+                    respText.innerText = text;
+                    respContainer.classList.remove('hidden');
+                } else {
+                    respText.innerText = "Kechirasiz, yechim olishda xatolik yuz berdi.";
+                    respContainer.classList.remove('hidden');
+                }
+            } catch (e) {
+                respText.innerText = "Tarmoqda xatolik yuz berdi. Qayta urinib ko'ring.";
+                respContainer.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>Yechimni topish</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>`;
+            }
+        }
+
+        // Initialize loops
+        window.onload = function() {
+            resizeCanvases();
+            updateCoulomb();
+            drawChargesSim();
+            drawFieldSim();
+        };
+    </script>
+</body>
+</html>
